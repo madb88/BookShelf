@@ -1,4 +1,8 @@
 <?php
+require_once 'connection.php';
+
+header("Access-Control-Allow-Origin: *");
+
 class Book{
     
     static public function getBooksNames(mysqli $conn){
@@ -56,6 +60,14 @@ class Book{
         return $this->description;
     }
     
+    public function deleteFromDb(mysqli $conn, $id){
+        $sql = "DELETE FROM Books WHERE id=$id";
+        $result = $conn->query($sql);
+        return $result;
+    }
+      
+       
+    
     public function saveBookToDb(mysqli $conn){
         if($this->id === -1){
             $sql = "INSERT INTO Books (name, author_name, description) VALUES 
@@ -67,10 +79,17 @@ class Book{
             }
             return false;
         } else {
-            //update do bazy danych 
+           $sql = "UPDATE Books 
+                    SET name = '{$this->name}', 
+                    author_name = '{$this->author_name}', 
+                    description={$this->description}
+                    WHERE id = {$this->id}";
+            if($conn->query($sql)){
+                return true;
+            } 
         }
-        
-    }
+    
+}
     
     public function loadBookFromDb($id, mysqli $conn){
         $sql = "SELECT * FROM Books WHERE id = {$id}";

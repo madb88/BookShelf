@@ -5,8 +5,22 @@
         <meta charset="UTF-8">
         <script src="http://code.jquery.com/jquery-2.2.4.js"></script> 
         <script src="js/app.js"></script>
+        <link href="style.css" rel="stylesheet">
     </head>
     <body>
+        <fieldset>
+        <form method="POST" id="newBook">
+            <label>Title</label>
+            <input type="text" name="title" id="title">
+            <br>
+            <label>Author</label>
+            <input type="text" name="author" id="author">
+            <br>
+            <label>Description</label>
+            <input type="text" name="description" id="description">
+            <input id="submit" type="submit" value="Add">
+        </form>
+        </fieldset>
         <ul id="listWithBooks"></ul>
     </body>
 </html>

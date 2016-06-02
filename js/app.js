@@ -1,4 +1,24 @@
 $(function(){
+    
+        var form = $("#newBook");
+        form.on("submit",function(event){
+            event.preventDefault();
+            var dataFromForm = form.serialize();
+            
+            $.ajax({
+                url: "http://192.168.33.22/RestBookShelf/api/books.php",
+                method: "POST",
+                data: dataFromForm,
+                dataType: "JSON"
+            }).done(function(){
+                loadAllBooks();
+            }).fail(function(xhr, status, error){ 
+                console.log("adding new book failed - ajax POST");
+            });
+        });
+        
+       
+        
     var loadAllBooks = function(){
         var bookList = $("#listWithBooks");
         $.ajax({
@@ -9,7 +29,7 @@ $(function(){
             bookList.empty();
             for(var i = 0; i < bookNamesArray.length; i++){
                 var newLi = $("<li>");
-                var removeButton = $('<button class="delbtn">Delete</button>');
+                var removeButton = $('<button class="delbtn" id="delButton">Delete</button>');
                 var showButton = $('<button class="showbtn">Show more info</button>');
                 newLi.attr("data-id", bookNamesArray[i].id);
                 newLi.text(bookNamesArray[i].name);
@@ -20,6 +40,7 @@ $(function(){
         }).fail(function(xhr, status, error){
             console.log("Load all books ajax failed");
         });
+        
     };
     
     
@@ -35,14 +56,44 @@ $(function(){
            dataType: "JSON"
        }).done(function(book){
            var newDiv = $("<div><h1>" + book.title + "</h1>"+ "<p>"+ book.author + "</p>" + "<p>" + book.description + "</p>" +"</div>");
+           newDiv.addClass("info");
            buttonParent.append(newDiv);
            button.removeClass("showbtn");
            button.text("Hide");
-           //button.addClass("hideBtn"); //ZWIN INFORMACJE DOPISAC FUNKCJONALNOSC 
+           button.addClass("hideBtn");
+           
        }).fail(function(xhr, status, error){
            console.log("Ajax failed when reading book with id" + bookId);
        });
     });
+    
+    bookList.on("click", ".hideBtn", function(){
+        var button = $(this);
+        var buttonParent = $(this).parent();
+        var newDiv = $(".info");
+        newDiv.empty();
+        button.text("Show more info");
+        button.addClass("showbtn");
+
+    });
+        
+    // Delete the book
+    bookList.on("click", "#delButton", function(){
+        
+        var button = $(this);
+        var bookId = button.parent().data("id");
+        console.log(bookId);
+        $.ajax({
+            url: "http://192.168.33.22/RestBookShelf/api/books.php?id=",
+            type: "DELETE",
+            data: bookId
+//            dataType: "json"
+        }).done(function(){
+            console.log('dziala');
+        });
+       
+    });
+    
     
     loadAllBooks();
 
