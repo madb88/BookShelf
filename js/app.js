@@ -85,7 +85,7 @@ $(function(){
         var info = "id="+bookId;
         console.log(bookId);
         $.ajax({
-            url: "http://192.168.33.22/RestBookShelf/api/books.php?",
+            url: "http://192.168.33.22/RestBookShelf/api/books.php",
             type: "DELETE",
             data: info,
 //            dataType: "json"
