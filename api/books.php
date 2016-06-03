@@ -13,10 +13,10 @@ if($_SERVER['REQUEST_METHOD'] === "GET"){
         
     } 
         else {
-        $allBooksName = Book::getBooksNames($conn);
-        $allBooksNameJSON = json_encode($allBooksName);
-        echo $allBooksNameJSON;
-    }
+            $allBooksName = Book::getBooksNames($conn);
+            $allBooksNameJSON = json_encode($allBooksName);
+            echo $allBooksNameJSON;
+        }
 }
     
 if ($_SERVER['REQUEST_METHOD'] === "POST"){
@@ -29,15 +29,23 @@ if ($_SERVER['REQUEST_METHOD'] === "POST"){
     echo ($bookToCreateJSON);
     
 }
-if ($_SERVER['REQUEST_METHOD'] === 'DELETE'){
-    var_dump($_SERVER);
+if($_SERVER['REQUEST_METHOD'] === 'DELETE'){
+    
     parse_str(file_get_contents("php://input"), $del_vars);
-    var_dump($del_vars);
-    var_dump($del_vars['id']);
-//    $booktoDelete = new Book();
-//    $booktoDelete->loadBookFromDb($del_vars['id'], $conn);
-//    $booktoDelete->deleteFromDb($conn, $del_vars['id']);
-//    echo json_encode($booktoDelete);
+    
+    $bookToDelete = new Book();
+    $bookToDelete->loadBookFromDb($del_vars['id'], $conn);
+    $bookToDelete->deleteFromDb($conn, $del_vars['id']);
+//    echo json_encode($bookToDelete);
 
 
+}
+
+if($_SERVER['REQUEST_METHOD'] === 'PUT'){
+    
+    parse_str(file_get_contents("php://input"), $put_vars);
+    $bookToEdit = new Book();
+    $bookToEdit->update($conn, $put_vars['id'], $put_vars['title'], $put_vars['author'], $put_vars['description']);
+    echo json_encode($bookToEdit);
+    
 }

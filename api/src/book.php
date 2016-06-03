@@ -78,18 +78,16 @@ class Book{
                 return true;
             }
             return false;
-        } else {
-           $sql = "UPDATE Books 
-                    SET name = '{$this->name}', 
-                    author_name = '{$this->author_name}', 
-                    description={$this->description}
-                    WHERE id = {$this->id}";
-            if($conn->query($sql)){
-                return true;
-            } 
-        }
+        } 
+    }
     
-}
+    public function update(mysqli $conn, $id, $name, $author, $description){
+        $sql = "UPDATE Books SET name = '$name', author_name = '$author', description = '$description'
+                WHERE id = $id";
+        $result = $conn->query($sql);
+        return $result;
+    }
+       
     
     public function loadBookFromDb($id, mysqli $conn){
         $sql = "SELECT * FROM Books WHERE id = {$id}";
@@ -106,6 +104,7 @@ class Book{
         }
         return false;
     }
+    
     
     public function toArray(){
         $ret = [];
