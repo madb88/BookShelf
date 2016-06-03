@@ -29,7 +29,7 @@ $(function(){
             bookList.empty();
             for(var i = 0; i < bookNamesArray.length; i++){
                 var newLi = $("<li>");
-                var removeButton = $('<button class="delbtn" id="delButton">Delete</button>');
+                var removeButton = $('<button class="delbtn">Delete</button>');
                 var showButton = $('<button class="showbtn">Show more info</button>');
                 newLi.attr("data-id", bookNamesArray[i].id);
                 newLi.text(bookNamesArray[i].name);
@@ -78,18 +78,21 @@ $(function(){
     });
         
     // Delete the book
-    bookList.on("click", "#delButton", function(){
+    bookList.on("click", ".delbtn", function(){
         
         var button = $(this);
         var bookId = button.parent().data("id");
+        var info = "id="+bookId;
         console.log(bookId);
         $.ajax({
-            url: "http://192.168.33.22/RestBookShelf/api/books.php?id=",
+            url: "http://192.168.33.22/RestBookShelf/api/books.php?",
             type: "DELETE",
-            data: bookId
+            data: info,
 //            dataType: "json"
         }).done(function(){
-            console.log('dziala');
+            console.log('dziala');;
+        }).fail(function(xhr, status, error){
+            console.log('Error - ajax DELETE');
         });
        
     });
