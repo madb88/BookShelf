@@ -1,6 +1,5 @@
 $(function(){
-    
-    
+     
     //Adding new book -> FORM
     var form = $("#newBook");
     form.on("submit",function(event){

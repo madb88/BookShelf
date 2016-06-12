@@ -3,13 +3,14 @@
     <head>
         <title>Bookshelf</title>
         <meta charset="UTF-8">
-        <script src="http://code.jquery.com/jquery-2.2.4.js"></script> 
+        <script src="http://code.jquery.com/jquery-2.2.4.js"></script>
         <script src="js/app.js"></script>
         <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap.min.css">
         <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/js/bootstrap.min.js"></script>
     </head>
     <body>
         <div class="container">
+            <h2 style="text-align: center">BookShelf</h2>
             <div class="row" style="margin: 2% 10% 5% 30%">
                 <form method="POST" id="newBook">
                     <div class="form-group">
@@ -27,7 +28,7 @@
                     <div class="form-group">
                         <div class="col-xs-8">
                             <label for="description">Description</label>
-                            <input type="text" name="description" id="description" class="form-control" placeholder="Book description" required>
+                            <textarea class="form-control" placeholder="Book description" name="description" id="description" rows="4" cols="50" required></textarea>
                         </div>
                         <br>
                         <div class="col-xs-8">
@@ -36,17 +37,20 @@
                     </div>
                 </form>
             </div>
+            <hr>
         </div>
         <div class="container-fluid">
             <div class="row">
                 <div class="col-xs-12">
-                <div class="container-fluid">
-                    <table id="table" class="table table-striped">
-                    <ul id="listWithBooks" style="list-style:none"></ul>
-                    </table> 
-                </div>
+                    <div class="container-fluid">
+                        <table id="table" class="table table-striped">
+                            <ul id="listWithBooks" style="list-style:none"></ul>
+                        </table>
+                    </div>
                 </div>
             </div>
+            <!-- footer -->
+            <p style="text-align: center">Author: Jakub Kamiński</p>
         </div>
     </body>
 </html>
