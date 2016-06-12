@@ -1,8 +1,9 @@
 # BookShelf
-Powered by Js, Jquery, PHP, Ajax
+Powered by JS, Jquery, PHP, Ajax
 
-Ver. 1.0 
+Ver. 1.1 
 - Adding new books
 - Deleting books
 - Updating books
 - Bootstrap elements
+
