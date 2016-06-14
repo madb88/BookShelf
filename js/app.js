@@ -35,14 +35,16 @@ $(function(){
                 var newTd2 = $("<td>");
                 var newTd3= $("<td>");
                 //***********************
-                var removeButton = $('<button class="delbtn btn btn-danger btn-xs">Delete</button>');
+                var removeButton = $('<button class="delbtn btn btn-danger btn-xs" id="deleteButton">Delete</button>');
                 var showButton = $('<button class="showbtn btn btn-primary btn-xs">Show more info</button>');
                 newLi.attr("data-id", bookNamesArray[i].id);
                 newLi.text("Book Title: "+bookNamesArray[i].name);
-               
+                
 //                newTr.append(newLi);
 //                newTable.append(newTr);
-                
+                if(bookNamesArray[i].id === "666"){
+                    removeButton.css("display","none");
+                }
                 newTd.append(newLi);
                 newLi.append(showButton);
                 newLi.append(removeButton);
@@ -63,6 +65,8 @@ $(function(){
     bookList.on("click",".showbtn", function(){
        var button = $(this);
        var bookId = button.parent().data("id");
+       var deleteButton = $("#deleteButton");
+       
        
        var buttonParent = $(this).parent();
        $.ajax({
@@ -72,6 +76,9 @@ $(function(){
            dataType: "JSON"
        }).done(function(book){
            var newDiv = $("<div><h1>Title: " + book.title + "</h1>"+ "<p>Author: "+ book.author + "</p>" + "<p>Description: " + book.description + "</p>" +"</div>");
+           if(bookId === 666){
+               newDiv = $("<div><strong>SECRET</strong></div>");
+           }
            newDiv.addClass("info");
            buttonParent.append(newDiv);
            button.toggleClass("showbtn");
@@ -92,7 +99,13 @@ $(function(){
            newForm.append(inputAuthorName);
            newForm.append(inputDescription);
            newForm.append(inputSubmit);
+           if(bookId === 666){
+               newDiv = $("<div>");
+               newDiv.remove(deleteButton);
+           }
            newDiv.append(newForm);
+           
+           
        }).fail(function(xhr, status, error){
            console.log("Ajax failed when reading book with id" + bookId);
    });
